@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # 1. The service for your Spring Boot Books API
+  books-api:
+    # Instruction to build the image from the Dockerfile in the current directory
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: books-api-optimized:1.0  # Name for your local image
+    container_name: books_api_container
+
+    # Map the container's internal port 8080 to the host's port 8080
+    ports:
+      - "8080:8080"
+
+    # For a service without a persistent database, 'restart: always' is often sufficient
+    restart: always
+
+    # ---
+    # Database configuration section (Currently commented out as you use In-Memory list)
+    # If you later decide to use a persistent DB (like Postgres or MySQL):
+    # depends_on:
+    #   - db
+    # environment:
+    #   SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/bookdb
+    #   SPRING_DATASOURCE_USERNAME: bookuser
+    #   SPRING_DATASOURCE_PASSWORD: supersecretpassword
+    # ---
+
+  # volumes:
+  # postgres_data: # Define the volume here if using a database
